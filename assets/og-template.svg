@@ -1,0 +1,90 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=Inter:wght@400;500&display=swap');
+
+      .og-bg {
+        fill: #1A2B4D;
+      }
+
+      .og-accent-block {
+        fill: #B8832A;
+      }
+
+      .og-logo-text {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        fill: #FFFFFF;
+      }
+
+      .og-tagline {
+        font-family: 'Inter', sans-serif;
+        font-size: 28px;
+        font-weight: 400;
+        fill: #F5F5F5;
+        line-height: 1.4;
+      }
+
+      .og-meta {
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        fill: #B8832A;
+        opacity: 0.9;
+      }
+
+      .og-property-title {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 36px;
+        font-weight: 700;
+        fill: #F5F5F5;
+      }
+
+      .og-property-detail {
+        font-family: 'Inter', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        fill: #E5E7EB;
+      }
+    </style>
+  </defs>
+
+  <!-- Navy background -->
+  <rect class="og-bg" width="1200" height="630" />
+
+  <!-- Copper accent block (top right corner) -->
+  <rect class="og-accent-block" x="900" y="0" width="300" height="150" />
+
+  <!-- Logo wordmark -->
+  <text x="60" y="100" class="og-logo-text">
+    <tspan>NexEstate</tspan>
+  </text>
+
+  <!-- Copper underline under logo -->
+  <line x1="60" y1="120" x2="350" y2="120" stroke="#B8832A" stroke-width="4" stroke-linecap="round" />
+
+  <!-- Tagline "Tu inmobiliaria, potenciada." -->
+  <text x="60" y="250" class="og-tagline">
+    <tspan x="60" dy="0">Tu inmobiliaria,</tspan>
+    <tspan x="60" dy="40">potenciada.</tspan>
+  </text>
+
+  <!-- Accent line -->
+  <line x1="60" y1="310" x2="480" y2="310" stroke="#B8832A" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Meta text (bottom left) — "Property | Listing" style placeholder -->
+  <text x="60" y="550" class="og-meta">Property Listing</text>
+
+  <!-- Dynamic content area (property title & detail placeholders) -->
+  <!-- Replace these with dynamic values in your OG generation script -->
+  <text x="60" y="600" class="og-property-title">[Property Address]</text>
+  <text x="900" y="600" class="og-property-detail" text-anchor="end">[Price]</text>
+
+  <!-- Copper accent line at bottom (divider) -->
+  <line x1="0" y1="580" x2="1200" y2="580" stroke="#B8832A" stroke-width="2" opacity="0.6" />
+
+  <!-- Subtle white border (optional, for framing) -->
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.1" />
+</svg>

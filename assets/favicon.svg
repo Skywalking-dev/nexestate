@@ -1,0 +1,30 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&display=swap');
+
+      .favicon-monogram {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 40px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        fill: #1A2B4D;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+
+      .favicon-bg {
+        fill: none;
+      }
+    </style>
+  </defs>
+
+  <!-- Optional background circle (subtle) -->
+  <circle cx="32" cy="32" r="31" class="favicon-bg" stroke="#1A2B4D" stroke-width="1" opacity="0.1" />
+
+  <!-- Monogram: "NE" -->
+  <text x="32" y="32" class="favicon-monogram">NE</text>
+
+  <!-- Accent mark (small cobre underline) -->
+  <line x1="18" y1="46" x2="46" y2="46" stroke="#B8832A" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
+</svg>

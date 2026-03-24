@@ -1,0 +1,33 @@
+<svg viewBox="0 0 240 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&display=swap');
+
+      .nexestate-text {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        fill: #1A2B4D;
+        line-height: 1;
+      }
+
+      .nex {
+        font-weight: 700;
+      }
+
+      .estate {
+        font-weight: 600;
+        opacity: 0.95;
+      }
+    </style>
+  </defs>
+
+  <!-- Wordmark: "NexEstate" -->
+  <text x="0" y="44" class="nexestate-text">
+    <tspan class="nex">Nex</tspan><tspan class="estate">Estate</tspan>
+  </text>
+
+  <!-- Accent line under "Nex" -->
+  <line x1="0" y1="48" x2="88" y2="48" stroke="#B8832A" stroke-width="2" stroke-linecap="round" />
+</svg>

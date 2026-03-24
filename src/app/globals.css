@@ -1,0 +1,192 @@
+/**
+ * NexEstate — Global CSS
+ * Canonical source: projects/nexestate/PRODUCT_IDENTITY.md
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   ROOT TOKENS
+   ================================================================ */
+
+:root {
+  /* ── Brand colors ─────────────────────────────────────────────── */
+  --color-primary: #1a2b4d;
+  --color-accent: #b8832a;
+  --color-background: #f5f5f5;
+
+  /* ── Corporate gray scale ─────────────────────────────────────── */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+
+  /* ── Status / semantic colors ─────────────────────────────────── */
+  --color-success: #10b981;
+  --color-error: #dc2626;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+
+  /* ── Typography ───────────────────────────────────────────────── */
+  --font-heading: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Inter", monospace;
+
+  /* ── Spacing — 4px base grid ──────────────────────────────────── */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+
+  /* ── Motion timing ────────────────────────────────────────────── */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 400ms;
+  --duration-form: 200ms;
+  --easing-brand: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-in-out: cubic-bezier(0.4, 0.2, 0.2, 1);
+
+  /* ── Border radius ────────────────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 50%;
+
+  /* ── Elevation ────────────────────────────────────────────────── */
+  --shadow-focus: 0 0 0 3px rgba(184, 131, 42, 0.1);
+}
+
+/* ================================================================
+   BASE TYPOGRAPHY DEFAULTS
+   ================================================================ */
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--color-primary);
+    background-color: var(--color-background);
+    overflow-x: hidden;
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--color-primary);
+  }
+
+  h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+    color: var(--color-primary);
+  }
+
+  p,
+  li,
+  td,
+  th {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  [data-variant="tabular"],
+  .tabular-nums {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 2px;
+    transition: text-decoration-color var(--duration-fast) ease-out;
+  }
+
+  a:hover {
+    text-decoration-color: var(--color-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    box-shadow: var(--shadow-focus);
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+/* ================================================================
+   COMPONENT TRANSITIONS
+   ================================================================ */
+
+@layer components {
+  .transition-button {
+    transition:
+      background-color var(--duration-fast) ease-out,
+      color var(--duration-fast) ease-out;
+  }
+
+  .transition-modal {
+    transition:
+      opacity var(--duration-normal) var(--easing-brand),
+      transform var(--duration-normal) var(--easing-brand);
+  }
+
+  .transition-input {
+    transition:
+      border-color var(--duration-form) var(--easing-in-out),
+      box-shadow var(--duration-form) var(--easing-in-out);
+  }
+}
+
+/* ================================================================
+   MOTION ACCESSIBILITY
+   ================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

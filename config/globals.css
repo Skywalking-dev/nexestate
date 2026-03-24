@@ -1,0 +1,219 @@
+/**
+ * NexEstate — Global CSS
+ * Canonical source: projects/nexestate/PRODUCT_IDENTITY.md
+ *
+ * This file:
+ *   1. Declares all brand tokens as CSS custom properties on :root
+ *   2. Sets base typography defaults that Tailwind doesn't auto-apply
+ *   3. Provides motion/accessibility media query override
+ *   4. Enables non-Tailwind contexts (e.g. shadcn/ui internals, SVGs) to use brand tokens
+ *
+ * Import order in layout.tsx:
+ *   1. fonts.ts (injects --font-heading / --font-body via next/font)
+ *   2. This file (consumes those vars + declares all others)
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   ROOT TOKENS
+   All values from PRODUCT_IDENTITY.md § Tailwind 4 CSS Variables
+   ================================================================ */
+
+:root {
+  /* ── Brand colors ─────────────────────────────────────────────── */
+  --color-primary: #1a2b4d;        /* Navy — structure, trust, headings */
+  --color-accent: #b8832a;         /* Copper — CTAs, highlights ONLY */
+  --color-background: #f5f5f5;     /* Canvas — slight warmth vs pure white */
+
+  /* ── Corporate gray scale ─────────────────────────────────────── */
+  --color-gray-50: #f9fafb;        /* Subtle backgrounds, hover states */
+  --color-gray-100: #f3f4f6;       /* Card borders, section dividers */
+  --color-gray-200: #e5e7eb;       /* Form borders, secondary separators */
+  --color-gray-300: #d1d5db;       /* Disabled form inputs */
+  --color-gray-400: #9ca3af;       /* Placeholder text */
+  --color-gray-500: #6b7280;       /* Secondary text — 4.5:1 on white */
+  --color-gray-600: #4b5563;       /* Tertiary text */
+  --color-gray-700: #374151;       /* Strong contrast text */
+  --color-gray-800: #1f2937;       /* Highest contrast text */
+
+  /* ── Status / semantic colors ─────────────────────────────────── */
+  --color-success: #10b981;        /* Property listed, confirmed */
+  --color-error: #dc2626;          /* Darker than raw spec — WCAG AA 4.5:1 */
+  --color-warning: #f59e0b;        /* Low listings, expiring leads */
+  --color-info: #3b82f6;           /* Neutral notifications */
+
+  /* ── Typography ───────────────────────────────────────────────── */
+  /* --font-heading injected by next/font (Plus Jakarta Sans) */
+  /* --font-body injected by next/font (Inter) */
+  /* Fallbacks ensure render before font load */
+  --font-heading: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Inter", monospace; /* Tabular nums only — no Geist Mono in body */
+
+  /* ── Spacing — 4px base grid ──────────────────────────────────── */
+  --spacing-1: 4px;                /* Micro gaps, icon padding */
+  --spacing-2: 8px;                /* Small padding, dividers */
+  --spacing-3: 12px;               /* Form spacing, icon + text gap */
+  --spacing-4: 16px;               /* Default padding, margins */
+  --spacing-5: 20px;               /* Medium gaps */
+  --spacing-6: 24px;               /* Card padding, section gaps */
+  --spacing-8: 32px;               /* XL spacing */
+  --spacing-10: 40px;              /* Section break */
+  --spacing-12: 48px;              /* Hero section padding */
+  --spacing-16: 64px;              /* Page margin (desktop) */
+  --spacing-20: 80px;              /* Hero margin */
+  --spacing-24: 96px;              /* Full-page section break */
+
+  /* ── Motion timing ────────────────────────────────────────────── */
+  --duration-fast: 150ms;          /* Micro — button hover, icon swap */
+  --duration-normal: 300ms;        /* Standard — modal open, tab switch */
+  --duration-slow: 400ms;          /* Lazy load — property card fade-in */
+  --duration-form: 200ms;          /* Form state — focus ring, error highlight */
+  --easing-brand: cubic-bezier(0.4, 0, 0.2, 1);     /* Standard */
+  --easing-in-out: cubic-bezier(0.4, 0.2, 0.2, 1);  /* Form state */
+
+  /* ── Border radius ────────────────────────────────────────────── */
+  --radius-sm: 6px;                /* Buttons, inputs */
+  --radius-md: 8px;                /* Cards */
+  --radius-lg: 12px;               /* Modals, dropdowns */
+  --radius-full: 50%;              /* Avatars, icons */
+
+  /* ── Elevation (color-based, no shadows) ─────────────────────── */
+  --shadow-focus: 0 0 0 3px rgba(184, 131, 42, 0.1); /* Copper focus ring */
+}
+
+/* ================================================================
+   BASE TYPOGRAPHY DEFAULTS
+   Applied globally so heading elements use Plus Jakarta automatically.
+   ================================================================ */
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--color-primary);
+    background-color: var(--color-background);
+    /* Prevent horizontal scroll from component overflow */
+    overflow-x: hidden;
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;          /* 48px — display */
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    font-size: 2.25rem;       /* 36px — heading */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--color-primary);
+  }
+
+  h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;        /* 24px — subheading */
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0;
+    color: var(--color-primary);
+  }
+
+  p,
+  li,
+  td,
+  th {
+    font-family: var(--font-body);
+    font-size: 1rem;          /* 16px — body */
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  /* Tabular data — Inter 500 + tabular figures */
+  [data-variant="tabular"],
+  .tabular-nums {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Default link — copper underline + navy text (WCAG compliant) */
+  a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 2px;
+    transition: text-decoration-color var(--duration-fast) ease-out;
+  }
+
+  a:hover {
+    text-decoration-color: var(--color-primary);
+  }
+
+  /* Focus ring — 2px copper, visible on ALL interactive elements */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    box-shadow: var(--shadow-focus);
+  }
+
+  /* Remove focus ring when using mouse (keep for keyboard) */
+  :focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+/* ================================================================
+   COMPONENT TRANSITIONS
+   Per PRODUCT_IDENTITY.md § Animation & Motion — CSS Transitions
+   ================================================================ */
+
+@layer components {
+  /* Button interaction */
+  .transition-button {
+    transition:
+      background-color var(--duration-fast) ease-out,
+      color var(--duration-fast) ease-out;
+  }
+
+  /* Modal / overlay */
+  .transition-modal {
+    transition:
+      opacity var(--duration-normal) var(--easing-brand),
+      transform var(--duration-normal) var(--easing-brand);
+  }
+
+  /* Form inputs */
+  .transition-input {
+    transition:
+      border-color var(--duration-form) var(--easing-in-out),
+      box-shadow var(--duration-form) var(--easing-in-out);
+  }
+}
+
+/* ================================================================
+   MOTION ACCESSIBILITY
+   Per PRODUCT_IDENTITY.md § Motion Accessibility
+   Respect system preference — remove all transitions for users
+   who have "reduce motion" enabled.
+   ================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
