@@ -20,3 +20,6 @@ out/
 
 # supabase
 supabase/.temp/
+
+# direnv
+.envrc
