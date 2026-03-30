@@ -1,115 +1,152 @@
 /**
- * Placeholder Database type for NexEstate.
- * Replace with output of: `supabase gen types typescript --project-id <id>`
+ * Supabase Database types — auto-generated via `supabase gen types typescript`.
+ * Re-run: SUPABASE_ACCESS_TOKEN=... npx supabase gen types typescript --project-id vfdvfqqkxvqqcfeejazh
  */
+
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export type Database = {
+  __InternalSupabase: {
+    PostgrestVersion: "12"
+  }
+  public: {
+    Tables: {
+      crm_connections: {
+        Row: {
+          api_key_encrypted: string
+          config: Json
+          created_at: string
+          id: string
+          last_sync_at: string | null
+          org_id: string
+          provider: string
+          sync_status: string
+        }
+        Insert: {
+          api_key_encrypted: string
+          config?: Json
+          created_at?: string
+          id?: string
+          last_sync_at?: string | null
+          org_id: string
+          provider: string
+          sync_status?: string
+        }
+        Update: {
+          api_key_encrypted?: string
+          config?: Json
+          created_at?: string
+          id?: string
+          last_sync_at?: string | null
+          org_id?: string
+          provider?: string
+          sync_status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crm_connections_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      members: {
+        Row: {
+          created_at: string
+          id: string
+          org_id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          org_id: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          org_id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "members_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organizations: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          slug: string
+          tier: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          slug: string
+          tier?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          slug?: string
+          tier?: string
+        }
+        Relationships: []
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      get_user_org_id: { Args: { user_uuid: string }; Returns: string }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+}
+
+// ── Convenience aliases ─────────────────────────────────────────────────────
 
 export type OrgTier = 'starter' | 'pro' | 'enterprise'
 export type MemberRole = 'admin' | 'agent'
 export type CrmProvider = 'tokko' | 'deinmobiliarios'
-export type SyncStatus = 'pending' | 'running' | 'success' | 'error'
+export type SyncStatus = 'pending' | 'running' | 'success' | 'error' | 'active' | 'disconnected'
 
-// ── organizations ──────────────────────────────────────────────────────────────
+type Tables = Database['public']['Tables']
 
-export interface OrganizationRow {
-  id: string
-  name: string
-  slug: string
-  tier: OrgTier
-  created_at: string
-}
+export type OrganizationRow = Tables['organizations']['Row']
+export type OrganizationInsert = Tables['organizations']['Insert']
+export type OrganizationUpdate = Tables['organizations']['Update']
 
-export interface OrganizationInsert {
-  id?: string
-  name: string
-  slug: string
-  tier?: OrgTier
-  created_at?: string
-}
+export type MemberRow = Tables['members']['Row']
+export type MemberInsert = Tables['members']['Insert']
+export type MemberUpdate = Tables['members']['Update']
 
-export interface OrganizationUpdate {
-  name?: string
-  slug?: string
-  tier?: OrgTier
-}
-
-// ── members ────────────────────────────────────────────────────────────────────
-
-export interface MemberRow {
-  id: string
-  org_id: string
-  user_id: string
-  role: MemberRole
-  created_at: string
-}
-
-export interface MemberInsert {
-  id?: string
-  org_id: string
-  user_id: string
-  role?: MemberRole
-  created_at?: string
-}
-
-export interface MemberUpdate {
-  role?: MemberRole
-}
-
-// ── crm_connections ────────────────────────────────────────────────────────────
-
-export interface CrmConnectionRow {
-  id: string
-  org_id: string
-  provider: CrmProvider
-  api_key_encrypted: Uint8Array
-  last_sync_at: string | null
-  sync_status: SyncStatus
-  config: Record<string, unknown>
-  created_at: string
-}
-
-export interface CrmConnectionInsert {
-  id?: string
-  org_id: string
-  provider: CrmProvider
-  api_key_encrypted: Uint8Array
-  last_sync_at?: string | null
-  sync_status?: SyncStatus
-  config?: Record<string, unknown>
-  created_at?: string
-}
-
-export interface CrmConnectionUpdate {
-  last_sync_at?: string | null
-  sync_status?: SyncStatus
-  config?: Record<string, unknown>
-}
-
-// ── Database aggregate (mirrors supabase-js Database generic) ─────────────────
-
-export interface Database {
-  public: {
-    Tables: {
-      organizations: {
-        Row: OrganizationRow
-        Insert: OrganizationInsert
-        Update: OrganizationUpdate
-      }
-      members: {
-        Row: MemberRow
-        Insert: MemberInsert
-        Update: MemberUpdate
-      }
-      crm_connections: {
-        Row: CrmConnectionRow
-        Insert: CrmConnectionInsert
-        Update: CrmConnectionUpdate
-      }
-    }
-    Functions: {
-      get_user_org_id: {
-        Args: { user_uuid: string }
-        Returns: string | null
-      }
-    }
-  }
-}
+export type CrmConnectionRow = Tables['crm_connections']['Row']
+export type CrmConnectionInsert = Tables['crm_connections']['Insert']
+export type CrmConnectionUpdate = Tables['crm_connections']['Update']

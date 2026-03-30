@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
-import { signInWithMagicLink } from "@/lib/supabase/auth";
+import { loginWithMagicLink } from "./actions";
 
 type LoginState = "idle" | "loading" | "sent" | "error";
 
@@ -16,16 +16,12 @@ export default function LoginPage() {
     setState("loading");
     setErrorMessage("");
 
-    try {
-      await signInWithMagicLink(email);
-      setState("sent");
-    } catch (err) {
+    const result = await loginWithMagicLink(email);
+    if (result.error) {
       setState("error");
-      setErrorMessage(
-        err instanceof Error
-          ? err.message
-          : "Ocurrió un error. Intenta nuevamente."
-      );
+      setErrorMessage(result.error);
+    } else {
+      setState("sent");
     }
   }
 

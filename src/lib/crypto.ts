@@ -47,7 +47,7 @@ export function decryptApiKey(encrypted: string): string {
   const parts = encrypted.split(':')
   if (parts.length !== 3) throw new Error('Formato de clave cifrada inválido.')
 
-  const [ivB64, ciphertextB64, authTagB64] = parts
+  const [ivB64, ciphertextB64, authTagB64] = parts as [string, string, string]
   const iv = Buffer.from(ivB64, 'base64')
   const ciphertext = Buffer.from(ciphertextB64, 'base64')
   const authTag = Buffer.from(authTagB64, 'base64')
