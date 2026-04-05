@@ -83,12 +83,25 @@ export async function POST(request: Request): Promise<NextResponse> {
           { status: 502 },
         )
       }
-      throw err
+      console.error('[crm/connect] unexpected tokko error', err)
+      return NextResponse.json(
+        { error: 'Error inesperado al validar con Tokko. Intenta más tarde.' },
+        { status: 502 },
+      )
     }
   }
 
   // 5. Encrypt key + persist
-  const apiKeyEncrypted = encryptApiKey(api_key)
+  let apiKeyEncrypted: string
+  try {
+    apiKeyEncrypted = encryptApiKey(api_key)
+  } catch (err) {
+    console.error('[crm/connect] encryption error', err)
+    return NextResponse.json(
+      { error: 'Error interno del servidor al procesar la clave.' },
+      { status: 500 },
+    )
+  }
 
   const { data: connection, error: insertError } = await supabase
     .from('crm_connections')
