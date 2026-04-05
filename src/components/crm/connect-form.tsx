@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 type Provider = "tokko" | "deinmobiliarios";
 
@@ -38,10 +37,12 @@ export function ConnectForm({ onConnected }: ConnectFormProps) {
         body: JSON.stringify({ provider, api_key: apiKey }),
       });
 
-      const data: { error?: string } = await res.json();
+      const data: { error?: string } = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        setErrorMsg(data.error ?? "Error al conectar el CRM. Intenta nuevamente.");
+        setErrorMsg(
+          data.error ?? `Error al conectar el CRM (${res.status}). Intenta nuevamente.`,
+        );
         setFormState("error");
         return;
       }

@@ -73,7 +73,11 @@ export class TokkoClient {
       throw new TokkoConnectionError(`Error inesperado de Tokko: HTTP ${response.status}`)
     }
 
-    return response.json() as Promise<T>
+    try {
+      return await response.json() as T
+    } catch {
+      throw new TokkoConnectionError('Tokko respondió con formato inesperado (no JSON).')
+    }
   }
 
   /**
