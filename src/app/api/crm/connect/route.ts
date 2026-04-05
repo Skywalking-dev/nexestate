@@ -43,16 +43,15 @@ export async function POST(request: Request): Promise<NextResponse> {
   const { provider, api_key } = parsed.data
   const supabase = await createClient()
 
-  // 3. Check no existing active connection for org + provider
+  // 3. Check existing connection for org + provider
   const { data: existing } = await supabase
     .from('crm_connections')
-    .select('id')
+    .select('id, sync_status')
     .eq('org_id', orgId)
     .eq('provider', provider)
-    .neq('sync_status', 'disconnected')
     .maybeSingle()
 
-  if (existing) {
+  if (existing && existing.sync_status !== 'disconnected') {
     return NextResponse.json(
       { error: `Ya existe una conexión activa con ${provider}. Desconéctala primero.` },
       { status: 409 },
@@ -103,19 +102,31 @@ export async function POST(request: Request): Promise<NextResponse> {
     )
   }
 
-  const { data: connection, error: insertError } = await supabase
-    .from('crm_connections')
-    .insert({
-      org_id: orgId,
-      provider,
-      api_key_encrypted: apiKeyEncrypted,
-      sync_status: 'active',
-    })
-    .select('id, provider, sync_status, created_at')
-    .single()
+  // 6. Upsert: reactivate disconnected record or insert new
+  const { data: connection, error: upsertError } = existing
+    ? await supabase
+        .from('crm_connections')
+        .update({
+          api_key_encrypted: apiKeyEncrypted,
+          sync_status: 'active',
+          last_sync_at: null,
+        })
+        .eq('id', existing.id)
+        .select('id, provider, sync_status, created_at')
+        .single()
+    : await supabase
+        .from('crm_connections')
+        .insert({
+          org_id: orgId,
+          provider,
+          api_key_encrypted: apiKeyEncrypted,
+          sync_status: 'active',
+        })
+        .select('id, provider, sync_status, created_at')
+        .single()
 
-  if (insertError || !connection) {
-    console.error('[crm/connect] insert error', insertError)
+  if (upsertError || !connection) {
+    console.error('[crm/connect] upsert error', upsertError)
     return NextResponse.json({ error: 'Error al guardar la conexión.' }, { status: 500 })
   }
 
