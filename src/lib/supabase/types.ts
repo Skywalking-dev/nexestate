@@ -111,6 +111,21 @@ export type Database = {
           geo_long: number | null
           status: string
           tokko_data: Json
+          public_url: string | null
+          publication_title: string
+          reference_code: string
+          expenses: number | null
+          orientation: string
+          room_amount: number | null
+          dining_room: number | null
+          living_amount: number | null
+          parking_lot_amount: number | null
+          surface: number | null
+          floors_amount: number | null
+          tags: Json
+          custom_tags: Json
+          videos: Json
+          credit_eligible: string
           synced_at: string
           created_at: string
         }
@@ -134,6 +149,21 @@ export type Database = {
           geo_long?: number | null
           status?: string
           tokko_data?: Json
+          public_url?: string | null
+          publication_title?: string
+          reference_code?: string
+          expenses?: number | null
+          orientation?: string
+          room_amount?: number | null
+          dining_room?: number | null
+          living_amount?: number | null
+          parking_lot_amount?: number | null
+          surface?: number | null
+          floors_amount?: number | null
+          tags?: Json
+          custom_tags?: Json
+          videos?: Json
+          credit_eligible?: string
           synced_at?: string
           created_at?: string
         }
@@ -157,6 +187,21 @@ export type Database = {
           geo_long?: number | null
           status?: string
           tokko_data?: Json
+          public_url?: string | null
+          publication_title?: string
+          reference_code?: string
+          expenses?: number | null
+          orientation?: string
+          room_amount?: number | null
+          dining_room?: number | null
+          living_amount?: number | null
+          parking_lot_amount?: number | null
+          surface?: number | null
+          floors_amount?: number | null
+          tags?: Json
+          custom_tags?: Json
+          videos?: Json
+          credit_eligible?: string
           synced_at?: string
           created_at?: string
         }
