@@ -215,6 +215,53 @@ export type Database = {
           },
         ]
       }
+      contacts: {
+        Row: {
+          id: string
+          org_id: string
+          tokko_id: number | null
+          name: string
+          email: string | null
+          phone: string | null
+          tags: Json
+          tokko_data: Json
+          synced_at: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          org_id: string
+          tokko_id?: number | null
+          name?: string
+          email?: string | null
+          phone?: string | null
+          tags?: Json
+          tokko_data?: Json
+          synced_at?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          org_id?: string
+          tokko_id?: number | null
+          name?: string
+          email?: string | null
+          phone?: string | null
+          tags?: Json
+          tokko_data?: Json
+          synced_at?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contacts_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organizations: {
         Row: {
           created_at: string
@@ -279,3 +326,7 @@ export type CrmConnectionUpdate = Tables['crm_connections']['Update']
 export type PropertyRow = Tables['properties']['Row']
 export type PropertyInsert = Tables['properties']['Insert']
 export type PropertyUpdate = Tables['properties']['Update']
+
+export type ContactRow = Tables['contacts']['Row']
+export type ContactInsert = Tables['contacts']['Insert']
+export type ContactUpdate = Tables['contacts']['Update']
