@@ -31,7 +31,7 @@ export const fontBody = Inter({
   fallback: [
     "-apple-system",
     "BlinkMacSystemFont",
-    '"Segoe UI"',
+    "Segoe UI",
     "Roboto",
     "sans-serif",
   ],

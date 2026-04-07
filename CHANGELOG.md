@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- AI property search: natural language → DeepSeek V4 extracts filters → Supabase query (POST /api/search/properties)
+- DeepSeek API client (src/lib/deepseek.ts) — OAI-compatible, cheapest frontier model
+- AISearch component with example prompts, filter pills, and property grid results
+- Chat IA page now functional with AI-powered property search
 - Brand identity: PRODUCT_IDENTITY.md, logo SVG (light/dark), favicon, OG template (SKY-214)
 - Design tokens: Tailwind config, font preload (Plus Jakarta + Inter), CSS custom properties
 - CWV baseline audit with WCAG AA contrast validation (SKY-217)
