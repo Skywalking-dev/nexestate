@@ -2,9 +2,10 @@ import Link from "next/link";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/dashboard", icon: "grid" },
-  { label: "Propiedades", href: "/dashboard/propiedades", icon: "home" },
+  { label: "Propiedades", href: "/dashboard/propiedades", icon: "home", children: [
+    { label: "Landings", href: "/dashboard/landings", icon: "layout" },
+  ] },
   { label: "Contactos", href: "/dashboard/contactos", icon: "users" },
-  { label: "Landings", href: "/dashboard/landings", icon: "layout" },
   { label: "Chat IA", href: "/dashboard/chat-ia", icon: "message-circle" },
   { label: "Configuración", href: "/dashboard/configuracion", icon: "settings" },
 ] as const;
@@ -68,15 +69,27 @@ export function Sidebar() {
         data-testid="sidebar-nav"
       >
         {NAV_ITEMS.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="flex items-center gap-3 rounded-sm px-3 py-2 text-body-sm font-medium text-white/70 no-underline transition-button hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-            data-testid={`sidebar-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-          >
-            <NavIcon name={item.icon} />
-            {item.label}
-          </Link>
+          <div key={item.href}>
+            <Link
+              href={item.href}
+              className="flex items-center gap-3 rounded-sm px-3 py-2 text-body-sm font-medium text-white/70 no-underline transition-button hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              data-testid={`sidebar-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              <NavIcon name={item.icon} />
+              {item.label}
+            </Link>
+            {"children" in item && item.children?.map((child) => (
+              <Link
+                key={child.href}
+                href={child.href}
+                className="flex items-center gap-3 rounded-sm py-1.5 pl-9 pr-3 text-caption font-medium text-white/50 no-underline transition-button hover:bg-white/10 hover:text-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                data-testid={`sidebar-nav-${child.label.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                <NavIcon name={child.icon} />
+                {child.label}
+              </Link>
+            ))}
+          </div>
         ))}
       </nav>
     </aside>
