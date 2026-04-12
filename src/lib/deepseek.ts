@@ -17,7 +17,7 @@ interface DeepSeekResponse {
 
 export async function chatCompletion(
   messages: DeepSeekMessage[],
-  options?: { temperature?: number; maxTokens?: number; json?: boolean },
+  options?: { temperature?: number; maxTokens?: number; json?: boolean; timeoutMs?: number },
 ): Promise<string> {
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) throw new Error("DEEPSEEK_API_KEY not configured");
@@ -31,7 +31,7 @@ export async function chatCompletion(
   if (options?.json) body.response_format = { type: "json_object" };
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10_000);
+  const timeout = setTimeout(() => controller.abort(), options?.timeoutMs ?? 10_000);
 
   const res = await fetch(`${BASE_URL}/v1/chat/completions`, {
     method: "POST",

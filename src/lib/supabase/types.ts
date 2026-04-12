@@ -262,6 +262,60 @@ export type Database = {
           },
         ]
       }
+      property_landings: {
+        Row: {
+          id: string
+          property_id: string
+          org_id: string
+          content: Json
+          custom_prompt: string | null
+          slug: string
+          status: string
+          generated_at: string
+          published_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          property_id: string
+          org_id: string
+          content: Json
+          custom_prompt?: string | null
+          slug: string
+          status?: string
+          generated_at?: string
+          published_at?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          property_id?: string
+          org_id?: string
+          content?: Json
+          custom_prompt?: string | null
+          slug?: string
+          status?: string
+          generated_at?: string
+          published_at?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_landings_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "property_landings_org_id_fkey"
+            columns: ["org_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organizations: {
         Row: {
           created_at: string
@@ -330,3 +384,7 @@ export type PropertyUpdate = Tables['properties']['Update']
 export type ContactRow = Tables['contacts']['Row']
 export type ContactInsert = Tables['contacts']['Insert']
 export type ContactUpdate = Tables['contacts']['Update']
+
+export type PropertyLandingRow = Tables['property_landings']['Row']
+export type PropertyLandingInsert = Tables['property_landings']['Insert']
+export type PropertyLandingUpdate = Tables['property_landings']['Update']

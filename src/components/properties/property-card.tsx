@@ -40,7 +40,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
 
 	return (
 		<div
-			className="rounded-md border border-gray-100 bg-white overflow-hidden transition-shadow duration-200 hover:shadow-sm"
+			className="rounded-md border border-gray-100 bg-white overflow-hidden transition-shadow duration-200 hover:shadow-sm flex flex-col"
 			data-testid={testId}
 		>
 			{/* Thumbnail */}
@@ -82,7 +82,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
 			</div>
 
 			{/* Content */}
-			<div className="p-4" data-testid={`${testId}-content`}>
+			<div className="flex-1 p-4" data-testid={`${testId}-content`}>
 				{/* Title + type */}
 				<div className="mb-1 flex items-start justify-between gap-2">
 					<h3
@@ -196,6 +196,32 @@ export function PropertyCard({ property }: PropertyCardProps) {
 						</span>
 					)}
 				</div>
+			</div>
+
+			{/* Generate Landing link */}
+			<div className="border-t border-gray-100 px-4 py-2" data-testid={`${testId}-landing-action`}>
+				<a
+					href={`/dashboard/landings/${property.id}`}
+					className="flex items-center gap-1.5 text-caption font-medium text-accent no-underline hover:brightness-[0.85] transition-button"
+					data-testid={`${testId}-generate-landing`}
+				>
+					<svg
+						width="14"
+						height="14"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+						<path d="M3 9h18" />
+						<path d="M9 21V9" />
+					</svg>
+					Generar Landing
+				</a>
 			</div>
 		</div>
 	);
